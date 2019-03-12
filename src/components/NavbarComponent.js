@@ -9,7 +9,15 @@ import {
   NavLink,
   NavItem
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+
+const styles = {
+  link: {
+    textDecoration: "none",
+    color: "inherit"
+  }
+};
 
 class NavbarComponent extends Component {
   render() {
@@ -21,11 +29,19 @@ class NavbarComponent extends Component {
               <NavbarBrand href="/">Sunflix</NavbarBrand>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="https://www.themoviedb.org">Popular</NavLink>
+                  <NavLink href="/popular">
+                    <Link style={styles.link} to="/popular">
+                      Popular
+                    </Link>
+                  </NavLink>
                 </NavItem>
 
                 <NavItem>
-                  <NavLink href="https://www.themoviedb.org">Trending</NavLink>
+                  <NavLink>
+                    <Link style={styles.link} to="/trending">
+                      Trending
+                    </Link>
+                  </NavLink>
                 </NavItem>
 
                 <NavItem>

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Navbar from "../components/NavbarComponent";
-import { Button, Container, Row } from "reactstrap";
+import { Container, Row } from "reactstrap";
+import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "../components/Header";
 import MovieCard from "../components/MovieCard";
 import axios from "axios";
@@ -20,16 +21,17 @@ class PopularPage extends Component {
   async componentDidMount() {
     try {
       const res = await axios.get(
-        `${
-          Config.apis_domain
-        }movie/popular?api_key=a5a2e1df5be77e9da24487b810e7b88e&language=en-US&page=1`
+        `${Config.apis_domain}movie/popular?api_key=${
+          Config.apis_key
+        }&language=en-US&page=1`
       );
 
       if (res.data) {
         console.log(res.data);
         this.setState({
           movies: res.data.results,
-          isLoading: false
+          page: res.data.page,
+          totalPages: res.data.total_pages
         });
       }
     } catch (err) {
@@ -37,34 +39,66 @@ class PopularPage extends Component {
     }
   }
 
-  render() {
-    const { movies, isLoading } = this.state;
+  fetchMoreData = async () => {
+    const { movies, page } = this.state;
 
-    let renderLayout;
-    if (movies && !isLoading)
-      renderLayout = movies.map(movie => (
-        <MovieCard
-          key={movie.id}
-          movieTitle={movie.title}
-          movieDescription={movie.overview}
-          movieBanner={movie.poster_path}
-          movieReleaseDate={movie.release_date}
-        />
-      ));
-    else renderLayout = <h1>Loading Data</h1>;
+    try {
+      await this.setState({ page: page + 1 });
+      const res = await axios.get(
+        `${Config.apis_domain}movie/popular?api_key=${
+          Config.apis_key
+        }&language=en-US&page=${page}`
+      );
+
+      if (res.data) {
+        console.log(res.data);
+        this.setState({
+          movies: movies.concat(res.data.results),
+          page: res.data.page,
+          totalPages: res.data.total_pages
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  render() {
+    const { movies, isLoading, page, totalPages } = this.state;
 
     return (
       <Fragment>
         <Navbar />
         <Header title="Popular Movie" />
 
-        <Container>
-          <Row>{renderLayout}</Row>
+        {movies ? (
+          <InfiniteScroll
+            dataLength={this.state.movies.length}
+            next={this.fetchMoreData}
+            hasMore={page != totalPages}
+            loader={<h4>Loading...</h4>}
+          >
+            <Container>
+              <Row>
+                {this.state.movies.map(movie => (
+                  <MovieCard
+                    key={movie.id}
+                    movieTitle={movie.title}
+                    movieDescription={movie.overview}
+                    movieBanner={movie.poster_path}
+                    movieReleaseDate={movie.release_date}
+                  />
+                ))}
+              </Row>
+            </Container>
+          </InfiniteScroll>
+        ) : (
+          <h1>loading</h1>
+        )}
 
-          <div className="text-center mt-5 mb-5">
+        {/* <div className="text-center mt-5 mb-5">
             <Button>View More</Button>
-          </div>
-        </Container>
+          </div> */}
       </Fragment>
     );
   }
