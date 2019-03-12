@@ -1,8 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import { Router, Route, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import PopularPage from "./views/PopularPage";
+import ArtistLandingPage from "./views/ArtistLandingPage";
+import MovieLandingPage from "./views/MovieLandingPage";
+import SearchResultPage from "./views/SearchResultPage";
+import TrendingPage from "./views/TrendingPage";
 
-serviceWorker.unregister();
+const hist = createBrowserHistory();
+
+ReactDOM.render(
+  <Router history={hist}>
+    <Switch>
+      <Route path="/" component={PopularPage} />
+      <Route path="/trending" component={TrendingPage} />
+      <Route path="/search-result" component={SearchResultPage} />
+      <Route path="/movie/{movieID}" component={MovieLandingPage} />
+      <Route path="/actor/{actorID}" component={ArtistLandingPage} />
+    </Switch>
+  </Router>,
+  document.getElementById("root")
+);
