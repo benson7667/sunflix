@@ -1,15 +1,7 @@
 import React from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardImg,
-  CardBody,
-  CardTitle,
-  CardText
-} from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import ContentLoader from "react-content-loader";
+import randomstring from "randomstring";
 
 const MyLoader = props => (
   <ContentLoader
@@ -42,7 +34,12 @@ const LoadingPlaceholder = () => (
       {Array(8)
         .fill("")
         .map(() => (
-          <Col style={{ marginBottom: "1.2rem" }} xs={6} md={3}>
+          <Col
+            key={randomstring.generate(7)}
+            style={{ marginBottom: "1.2rem" }}
+            xs={6}
+            md={3}
+          >
             <MyLoader />
           </Col>
         ))}

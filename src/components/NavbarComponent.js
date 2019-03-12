@@ -9,15 +9,7 @@ import {
   NavLink,
   NavItem
 } from "reactstrap";
-import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-
-const styles = {
-  link: {
-    textDecoration: "none",
-    color: "inherit"
-  }
-};
 
 class NavbarComponent extends Component {
   render() {
@@ -33,7 +25,7 @@ class NavbarComponent extends Component {
                 </NavItem>
 
                 <NavItem>
-                  <NavLink>Trending</NavLink>
+                  <NavLink href="/trending">Trending</NavLink>
                 </NavItem>
 
                 <NavItem>

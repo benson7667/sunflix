@@ -5,13 +5,17 @@ import Truncate from "react-truncate";
 import { Link } from "react-router-dom";
 
 const MovieCard = ({
+  movieID,
   movieTitle,
   movieReleaseDate,
   movieDescription,
   movieBanner
 }) => (
   <Col style={{ marginBottom: "1.2rem" }} xs={6} md={3}>
-    <Link to={"/trending"} style={{ textDecoration: "none", color: "black" }}>
+    <Link
+      to={`/movie/${movieID}`}
+      style={{ textDecoration: "none", color: "black" }}
+    >
       <Card>
         <CardImg
           top
@@ -43,6 +47,7 @@ const MovieCard = ({
 );
 
 MovieCard.propTypes = {
+  movieID: PropTypes.number.isRequired,
   movieBanner: PropTypes.string.isRequired,
   movieTitle: PropTypes.string.isRequired,
   movieDescription: PropTypes.string.isRequired,

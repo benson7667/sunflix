@@ -8,17 +8,44 @@ import {
   Button,
   Container
 } from "reactstrap";
+import { withRouter } from "react-router-dom";
 
 class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: ""
+    };
+  }
+
+  search = () => {
+    const { searchText } = this.state;
+    if (searchText && searchText.trim() !== "")
+      this.props.history.push(`search-result/${this.state.searchText}`);
+    else this.setState({ searchText: "" });
+  };
+
+  handleChange = e => {
+    this.setState({ searchText: e.target.value });
+  };
+
   render() {
     return (
       <Container>
         <Row className="search">
           <Col sm="12">
             <InputGroup>
-              <Input placeholder="Search Movie" />
+              <Input
+                value={this.state.searchText}
+                onChange={this.handleChange}
+                placeholder="Search Movie"
+              />
               <InputGroupAddon addonType="prepend">
-                <Button color="success" className="search-button">
+                <Button
+                  onClick={this.search}
+                  color="success"
+                  className="search-button"
+                >
                   Search
                 </Button>
               </InputGroupAddon>
@@ -29,4 +56,4 @@ class SearchBar extends Component {
     );
   }
 }
-export default SearchBar;
+export default withRouter(SearchBar);

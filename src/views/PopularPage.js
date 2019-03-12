@@ -69,7 +69,6 @@ class PopularPage extends Component {
 
     return (
       <Fragment>
-        <Navbar />
         <Header title="Popular Movie" />
 
         {/* if movies is not null render ininite scrolling else render loading placeholder */}
@@ -85,7 +84,10 @@ class PopularPage extends Component {
                 {movies.map(movie => (
                   <MovieCard
                     key={randomString.generate(7)}
-                    movieTitle={movie.title}
+                    movieID={movie.id}
+                    movieTitle={
+                      movie.original_name ? movie.original_name : movie.title
+                    }
                     movieDescription={movie.overview}
                     movieBanner={movie.poster_path}
                     movieReleaseDate={movie.release_date}

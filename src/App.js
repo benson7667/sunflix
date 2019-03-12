@@ -1,117 +1,49 @@
 import React, { Component } from "react";
-import Header from "./components/Header";
-import MovieGrid from "./components/MovieGrid";
-import axios from "axios";
-import Config from "./config/Constant";
+import { Router, Route, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import ScrollToTop from "./router/ScrollToTop";
+import PopularPage from "./views/PopularPage";
+import ArtistLandingPage from "./views/ArtistLandingPage";
+import MovieLandingPage from "./views/MovieLandingPage";
+import SearchResultPage from "./views/SearchResultPage";
+import TrendingPage from "./views/TrendingPage";
+import NotFound from "./views/NotFound";
+import Navbar from "./components/NavbarComponent";
+
+const hist = createBrowserHistory();
 
 class App extends Component {
-  async componentDidMount() {
-    try {
-      const res = await axios.get(
-        `${
-          Config.apis_domain
-        }trending/all/day?api_key=a5a2e1df5be77e9da24487b810e7b88e`
-      );
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   render() {
     return (
-      <div>
-        <nav>
-          <div class="nav-wrapper">
-            <a href="#" class="brand-logo">
-              Logo
-            </a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li class="input-field col s6">
-                <input
-                  placeholder="Placeholder"
-                  id="first_name"
-                  type="text"
-                  class="validate"
-                />
-                <label for="first_name">First Name</label>
-              </li>
+      <React.Fragment>
+        <Router history={hist}>
+          <Switch>
+            <ScrollToTop>
+              <Navbar />
+              <Route exact path="/" component={PopularPage} />
+              <Route exact path="/popular" component={PopularPage} />
+              <Route exact path="/trending" component={TrendingPage} />
+              <Route
+                exact
+                path="/search-result/:searchText"
+                component={SearchResultPage}
+              />
+              <Route
+                exact
+                path="/movie/:movieID"
+                component={MovieLandingPage}
+              />
+              <Route
+                exact
+                path="/actor/:actorID"
+                component={ArtistLandingPage}
+              />
+            </ScrollToTop>
 
-              <li>
-                <a href="sass.html">Popular</a>
-              </li>
-              <li>
-                <a href="badges.html">Trending</a>
-              </li>
-              <li>
-                <a href="collapsible.html">Search</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
-        <div class="row container">
-          <div class="col s12 m4">
-            <div class="card">
-              <div class="card-image">
-                <img src="https://image.tmdb.org/t/p/w1000_and_h563_face/w2PMyoyLU22YvrGK3smVM9fW1jj.jpg" />
-                <span class="card-title">Card Title</span>
-              </div>
-
-              <div class="card-content">
-                <p>
-                  I am a very simple card. I am good at containing small bits of
-                  information. I am convenient because I require little markup
-                  to use effectively.
-                </p>
-              </div>
-              <div class="card-action">
-                <a href="#">This is a link</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col s12 m4">
-            <div class="card">
-              <div class="card-image">
-                <img src="https://image.tmdb.org/t/p/w1000_and_h563_face/w2PMyoyLU22YvrGK3smVM9fW1jj.jpg" />
-                <span class="card-title">Card Title</span>
-              </div>
-
-              <div class="card-content">
-                <p>
-                  I am a very simple card. I am good at containing small bits of
-                  information. I am convenient because I require little markup
-                  to use effectively.
-                </p>
-              </div>
-              <div class="card-action">
-                <a href="#">This is a link</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col s12 m4">
-            <div class="card">
-              <div class="card-image">
-                <img src="https://image.tmdb.org/t/p/w1000_and_h563_face/w2PMyoyLU22YvrGK3smVM9fW1jj.jpg" />
-                <span class="card-title">Card Title</span>
-              </div>
-
-              <div class="card-content">
-                <p>
-                  I am a very simple card. I am good at containing small bits of
-                  information. I am convenient because I require little markup
-                  to use effectively.
-                </p>
-              </div>
-              <div class="card-action">
-                <a href="#">This is a link</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
+      </React.Fragment>
     );
   }
 }
