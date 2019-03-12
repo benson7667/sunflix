@@ -4,7 +4,7 @@ import { Container, Row } from "reactstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "../components/Header";
 import MovieCard from "../components/MovieCard";
-import LoadingPlaceholder from "../components/LoadingPlaceholder";
+import LoadingPlaceholder from "../components/loader/LoadingPlaceholder";
 import axios from "axios";
 import randomString from "randomstring";
 import Config from "../config/Constant";

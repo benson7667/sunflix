@@ -45,12 +45,6 @@ class MovieLandingPage extends Component {
   }
 
   render() {
-    const {
-      match: {
-        params: { movieID }
-      }
-    } = this.props;
-
     const { movieData, crewAndCast } = this.state;
 
     return (

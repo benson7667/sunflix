@@ -51,7 +51,11 @@ MovieCard.propTypes = {
   movieBanner: PropTypes.string.isRequired,
   movieTitle: PropTypes.string.isRequired,
   movieDescription: PropTypes.string.isRequired,
-  movieReleaseDate: PropTypes.string.isRequired
+  movieReleaseDate: PropTypes.string
+};
+
+MovieCard.defaultProps = {
+  movieReleaseDate: ""
 };
 
 export default MovieCard;
