@@ -4,7 +4,9 @@ import { Container, Row } from "reactstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "../components/Header";
 import MovieCard from "../components/MovieCard";
+import LoadingPlaceholder from "../components/LoadingPlaceholder";
 import axios from "axios";
+import randomString from "randomstring";
 import Config from "../config/Constant";
 
 class PopularPage extends Component {
@@ -19,6 +21,7 @@ class PopularPage extends Component {
   }
 
   async componentDidMount() {
+    //   component mounted, always call the apis with page=1 parameter
     try {
       const res = await axios.get(
         `${Config.apis_domain}movie/popular?api_key=${
@@ -27,11 +30,11 @@ class PopularPage extends Component {
       );
 
       if (res.data) {
-        console.log(res.data);
         this.setState({
           movies: res.data.results,
           page: res.data.page,
-          totalPages: res.data.total_pages
+          totalPages: res.data.total_pages,
+          isLoading: false
         });
       }
     } catch (err) {
@@ -43,15 +46,13 @@ class PopularPage extends Component {
     const { movies, page } = this.state;
 
     try {
-      await this.setState({ page: page + 1 });
       const res = await axios.get(
         `${Config.apis_domain}movie/popular?api_key=${
           Config.apis_key
-        }&language=en-US&page=${page}`
+        }&language=en-US&page=${page + 1}`
       );
 
       if (res.data) {
-        console.log(res.data);
         this.setState({
           movies: movies.concat(res.data.results),
           page: res.data.page,
@@ -71,18 +72,19 @@ class PopularPage extends Component {
         <Navbar />
         <Header title="Popular Movie" />
 
-        {movies ? (
+        {/* if movies is not null render ininite scrolling else render loading placeholder */}
+        {movies && !isLoading ? (
           <InfiniteScroll
             dataLength={this.state.movies.length}
             next={this.fetchMoreData}
             hasMore={page != totalPages}
-            loader={<h4>Loading...</h4>}
+            loader={<LoadingPlaceholder />}
           >
             <Container>
               <Row>
-                {this.state.movies.map(movie => (
+                {movies.map(movie => (
                   <MovieCard
-                    key={movie.id}
+                    key={randomString.generate(7)}
                     movieTitle={movie.title}
                     movieDescription={movie.overview}
                     movieBanner={movie.poster_path}
@@ -93,12 +95,8 @@ class PopularPage extends Component {
             </Container>
           </InfiniteScroll>
         ) : (
-          <h1>loading</h1>
+          <LoadingPlaceholder />
         )}
-
-        {/* <div className="text-center mt-5 mb-5">
-            <Button>View More</Button>
-          </div> */}
       </Fragment>
     );
   }

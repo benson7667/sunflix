@@ -29,19 +29,11 @@ class NavbarComponent extends Component {
               <NavbarBrand href="/">Sunflix</NavbarBrand>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="/popular">
-                    <Link style={styles.link} to="/popular">
-                      Popular
-                    </Link>
-                  </NavLink>
+                  <NavLink href="/popular">Popular</NavLink>
                 </NavItem>
 
                 <NavItem>
-                  <NavLink>
-                    <Link style={styles.link} to="/trending">
-                      Trending
-                    </Link>
-                  </NavLink>
+                  <NavLink>Trending</NavLink>
                 </NavItem>
 
                 <NavItem>
