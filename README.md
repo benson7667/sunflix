@@ -9,7 +9,19 @@ This application is hosting on Google Firebase - https://sunflix-f43c7.firebasea
 
 ## Procedure
 
-1. Clone the url `git clone https://github.com/benson7667/movie_and_chiils.git`
-2. cd to the repository `cd [path of the project directory]`
-3. Run command `npm install` to install dependencies
-4. Run command `npm start` to start the application in localhost
+#### 1. Clone the repository
+```
+$ git clone https://github.com/benson7667/sunflix.git
+```
+#### 2. Install the package dependencies
+```
+$ cd sunflix
+$ npm install
+```
+#### 3. Start the application in localhost
+```
+$ npm start
+```
+#### By default, your application will be served on `locahost:8080`
+
+
