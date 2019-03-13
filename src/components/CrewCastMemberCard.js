@@ -19,7 +19,7 @@ const CrewCastMemberCard = ({ member }) => (
     style={{ marginBottom: "1rem" }}
   >
     <Card>
-      <Link style={styles.link} to={`/actor/${member.id}`}>
+      <Link style={styles.link} to={`/actor/${member.id}/${member.credit_id}`}>
         <CardImg
           top
           src={

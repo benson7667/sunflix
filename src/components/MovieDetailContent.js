@@ -1,6 +1,7 @@
 import React from "react";
-import { Container, Row, Col, Badge, Button } from "reactstrap";
+import { Container, Row, Col, Badge } from "reactstrap";
 import PropTypes from "prop-types";
+import randomstring from "randomstring";
 import CrewCasterLoader from "../components/loader/CrewCasterLoader";
 import MovieDetailsLoader from "../components/loader/MovieDetailsLoader";
 import CrewCastMemberCard from "../components/CrewCastMemberCard";
@@ -17,9 +18,6 @@ const MovieDetailContent = ({ movieData, castcrewData }) => {
     "info",
     "dark"
   ];
-
-  console.log(movieData);
-  console.log(castcrewData);
 
   if (movieData === null) {
     renderMovieDetailLayout = <MovieDetailsLoader />;
@@ -61,10 +59,7 @@ const MovieDetailContent = ({ movieData, castcrewData }) => {
             <Col>
               <div>
                 <h5>Language</h5>
-                <p>
-                  {movieData.original_language &&
-                    movieData.original_language[0]["name"]}
-                </p>
+                <p>{movieData.original_language.toUpperCase()}</p>
               </div>
             </Col>
           </Row>
@@ -72,7 +67,13 @@ const MovieDetailContent = ({ movieData, castcrewData }) => {
           <Row>
             <Col>
               <h5>Production/Company</h5>
-              <Button color="link">link</Button>
+              {movieData.production_companies &&
+                movieData.production_companies.map(company => (
+                  <span key={randomstring.generate(7)} color="link">
+                    {`${company.name},  `}
+                  </span>
+                ))}
+              <p> </p>
             </Col>
           </Row>
 
@@ -112,7 +113,10 @@ const MovieDetailContent = ({ movieData, castcrewData }) => {
           <Row>
             {castcrewData.cast &&
               castcrewData.cast.map(cast => (
-                <CrewCastMemberCard member={cast} />
+                <CrewCastMemberCard
+                  key={randomstring.generate(7)}
+                  member={cast}
+                />
               ))}
           </Row>
         </div>
@@ -122,7 +126,10 @@ const MovieDetailContent = ({ movieData, castcrewData }) => {
           <Row>
             {castcrewData.crew &&
               castcrewData.crew.map(crew => (
-                <CrewCastMemberCard member={crew} />
+                <CrewCastMemberCard
+                  key={randomstring.generate(7)}
+                  member={crew}
+                />
               ))}
           </Row>
         </div>

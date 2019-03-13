@@ -35,7 +35,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path="/actor/:actorID"
+                path="/actor/:actorID/:creditID"
                 component={ArtistLandingPage}
               />
             </ScrollToTop>
