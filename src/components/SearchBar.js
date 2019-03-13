@@ -21,10 +21,10 @@ class SearchBar extends Component {
 
   search = e => {
     e.preventDefault();
-
     const { searchText } = this.state;
+
     if (searchText && searchText.trim() !== "") {
-      this.props.history.push(`search-result/${this.state.searchText}`);
+      window.location.href = `/search-result/${this.state.searchText}`;
     }
 
     this.setState({ searchText: "" });
