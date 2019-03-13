@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Provider } from "react-redux";
 import { Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import ScrollToTop from "./router/ScrollToTop";
@@ -9,13 +10,14 @@ import SearchResultPage from "./views/SearchResultPage";
 import TrendingPage from "./views/TrendingPage";
 import NotFound from "./views/NotFound";
 import Navbar from "./components/NavbarComponent";
+import store from "./store";
 
 const hist = createBrowserHistory();
 
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <Provider store={store}>
         <Router history={hist}>
           <Switch>
             <ScrollToTop>
@@ -43,7 +45,7 @@ class App extends Component {
             <Route component={NotFound} />
           </Switch>
         </Router>
-      </React.Fragment>
+      </Provider>
     );
   }
 }
