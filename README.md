@@ -3,7 +3,7 @@
 This project is created using create-react-app. It is aimed to create an application to allow visitors to browse movies and their cast based on data from The Movie DB API (https://www.themoviedb.org/documentation/api).
 
 
-## DEMO URL
+## Demo URL
 
 This application is hosting on Google Firebase - https://sunflix-f43c7.firebaseapp.com/
 
