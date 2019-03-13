@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export class SearchResultPage extends Component {
   render() {
     console.log(this.props);
-    return <h1>SearchResultPage</h1>;
+    return <h1>SearchResultPage...</h1>;
   }
 }
 
