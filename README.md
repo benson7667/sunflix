@@ -5,7 +5,8 @@ This project is created using create-react-app. It is aimed to create an applica
 
 ## Demo URL
 
-This application is hosting on Google Firebase - https://sunflix-f43c7.firebaseapp.com/
+This application is hosting on Google Firebase:
+### **https://sunflix-f43c7.firebaseapp.com/**
 
 ## Procedure
 
