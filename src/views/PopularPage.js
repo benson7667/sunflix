@@ -75,7 +75,7 @@ class PopularPage extends Component {
           <InfiniteScroll
             dataLength={this.state.movies.length}
             next={this.fetchMoreData}
-            hasMore={page != totalPages}
+            hasMore={page < totalPages}
             loader={<LoadingPlaceholder />}
           >
             <Container>

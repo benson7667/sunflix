@@ -6,7 +6,8 @@ import {
   Input,
   InputGroupAddon,
   Button,
-  Container
+  Container,
+  Form
 } from "reactstrap";
 import { withRouter } from "react-router-dom";
 
@@ -18,11 +19,15 @@ class SearchBar extends Component {
     };
   }
 
-  search = () => {
+  search = e => {
+    e.preventDefault();
+
     const { searchText } = this.state;
-    if (searchText && searchText.trim() !== "")
+    if (searchText && searchText.trim() !== "") {
       this.props.history.push(`search-result/${this.state.searchText}`);
-    else this.setState({ searchText: "" });
+    }
+
+    this.setState({ searchText: "" });
   };
 
   handleChange = e => {
@@ -34,22 +39,25 @@ class SearchBar extends Component {
       <Container>
         <Row className="search">
           <Col sm="12">
-            <InputGroup>
-              <Input
-                value={this.state.searchText}
-                onChange={this.handleChange}
-                placeholder="Search Movie"
-              />
-              <InputGroupAddon addonType="prepend">
-                <Button
-                  onClick={this.search}
-                  color="success"
-                  className="search-button"
-                >
-                  Search
-                </Button>
-              </InputGroupAddon>
-            </InputGroup>
+            <Form>
+              <InputGroup>
+                <Input
+                  value={this.state.searchText}
+                  onChange={this.handleChange}
+                  placeholder="Search Movie"
+                />
+                <InputGroupAddon addonType="prepend">
+                  <Button
+                    type="submit"
+                    onClick={this.search}
+                    color="success"
+                    className="search-button"
+                  >
+                    Search
+                  </Button>
+                </InputGroupAddon>
+              </InputGroup>
+            </Form>
           </Col>
         </Row>
       </Container>
