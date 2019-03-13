@@ -1,70 +1,57 @@
 import React, { Component, Fragment } from "react";
 import { Container, Row } from "reactstrap";
+import { connect } from "react-redux";
+import randomString from "randomstring";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "../components/Header";
 import MovieCard from "../components/MovieCard";
 import LoadingPlaceholder from "../components/loader/LoadingPlaceholder";
 import axios from "axios";
-import randomString from "randomstring";
 import Config from "../config/Constant";
+import {
+  loadPopularMovies,
+  fetchMorePopularMovies
+} from "../action/popularMoviesAction";
 
 class PopularPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
+      moviesData: null,
       movies: null,
       page: 1,
-      totalPages: 0
+      total_pages: 1
     };
   }
 
-  async componentDidMount() {
-    //   component mounted, always call the apis with page=1 parameter
-    try {
-      const res = await axios.get(
-        `${Config.apis_domain}movie/popular?api_key=${
-          Config.apis_key
-        }&language=en-US&page=1`
-      );
+  // map global state to local state
+  static getDerivedStateFromProps = (props, state) => {
+    // check if global state data is different with local state data
 
-      if (res.data) {
-        this.setState({
-          movies: res.data.results,
-          page: res.data.page,
-          totalPages: res.data.total_pages,
-          isLoading: false
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  fetchMoreData = async () => {
-    const { movies, page } = this.state;
-
-    try {
-      const res = await axios.get(
-        `${Config.apis_domain}movie/popular?api_key=${
-          Config.apis_key
-        }&language=en-US&page=${page + 1}`
-      );
-
-      if (res.data) {
-        this.setState({
-          movies: movies.concat(res.data.results),
-          page: res.data.page,
-          totalPages: res.data.total_pages
-        });
-      }
-    } catch (err) {
-      console.log(err);
+    if (props.popularMovies.movies !== state.movies) {
+      return {
+        isLoading: props.popularMovies.isLoading,
+        movies: props.popularMovies.movies,
+        page: props.popularMovies.page,
+        total_pages: props.popularMovies.total_pages
+      };
+    } else {
+      return null;
     }
   };
 
+  componentDidMount() {
+    this.props._loadPopularMovies();
+  }
+
+  fetchMoreData = () => this.props._fetchMorePopularMovies(this.state.page + 1);
+
   render() {
-    const { movies, isLoading, page, totalPages } = this.state;
+    // const { movies, isLoading, page, totalPages } = this.state;
+    const { movies, page, total_pages, isLoading } = this.state;
+
+    console.log(movies);
 
     return (
       <Fragment>
@@ -73,9 +60,9 @@ class PopularPage extends Component {
         {/* if movies is not null render ininite scrolling else render loading placeholder */}
         {movies && !isLoading ? (
           <InfiniteScroll
-            dataLength={this.state.movies.length}
+            dataLength={movies.length}
             next={this.fetchMoreData}
-            hasMore={page < totalPages}
+            hasMore={page < total_pages}
             loader={<LoadingPlaceholder />}
           >
             <Container>
@@ -103,4 +90,16 @@ class PopularPage extends Component {
   }
 }
 
-export default PopularPage;
+const mapStateToProps = state => ({
+  popularMovies: state.popularMovies
+});
+
+const mapDispatchToProps = {
+  _loadPopularMovies: loadPopularMovies,
+  _fetchMorePopularMovies: fetchMorePopularMovies
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PopularPage);
