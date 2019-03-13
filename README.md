@@ -23,6 +23,7 @@ $ npm install
 ```
 $ npm start
 ```
-#### By default, your application will be served on `locahost:8080`
+
+By default, your application will be served on [localhost:3000](http://localhost:3000/)
 
 
