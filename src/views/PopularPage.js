@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import Navbar from "../components/NavbarComponent";
 import { Container, Row } from "reactstrap";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "../components/Header";
