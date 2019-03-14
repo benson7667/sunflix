@@ -6,6 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "../components/Header";
 import MovieCard from "../components/MovieCard";
 import LoadingPlaceholder from "../components/loader/LoadingPlaceholder";
+import ProjectCheckpointModal from "../components/ProjectCheckpointModal";
 import {
   loadPopularMovies,
   fetchMorePopularMovies
@@ -51,6 +52,8 @@ class PopularPage extends Component {
     return (
       <Fragment>
         <Header title="Popular Movie" />
+
+        <ProjectCheckpointModal />
 
         {/* if movies is not null render ininite scrolling else render loading placeholder */}
         {movies && !isLoading ? (
