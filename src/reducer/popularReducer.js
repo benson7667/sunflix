@@ -5,7 +5,6 @@ import {
 } from "../action/types";
 
 const initialState = {
-  moviesData: null,
   isLoading: false,
   movies: null,
   page: 1,
@@ -33,11 +32,7 @@ export default function(state = initialState, action) {
     case LOAD_MORE_POPULAR_MOVIES:
       return {
         ...state,
-        moviesData: {
-          ...state.moviesData,
-          results: state.moviesData.results.concat(action.payload.results)
-        },
-        movies: [...state.movies, action.payload.results],
+        movies: state.movies.concat(action.payload.results),
         page: action.payload.page,
         total_pages: action.payload.total_pages
       };

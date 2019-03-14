@@ -6,8 +6,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "../components/Header";
 import MovieCard from "../components/MovieCard";
 import LoadingPlaceholder from "../components/loader/LoadingPlaceholder";
-import axios from "axios";
-import Config from "../config/Constant";
 import {
   loadPopularMovies,
   fetchMorePopularMovies
@@ -48,10 +46,7 @@ class PopularPage extends Component {
   fetchMoreData = () => this.props._fetchMorePopularMovies(this.state.page + 1);
 
   render() {
-    // const { movies, isLoading, page, totalPages } = this.state;
     const { movies, page, total_pages, isLoading } = this.state;
-
-    console.log(movies);
 
     return (
       <Fragment>

@@ -8,7 +8,7 @@ import ArtistLandingPage from "./views/ArtistLandingPage";
 import MovieLandingPage from "./views/MovieLandingPage";
 import SearchResultPage from "./views/SearchResultPage";
 import TrendingPage from "./views/TrendingPage";
-import NotFound from "./views/NotFound";
+import NotFoundPage from "./views/NotFoundPage";
 import Navbar from "./components/NavbarComponent";
 import store from "./store";
 
@@ -42,7 +42,7 @@ class App extends Component {
               />
             </ScrollToTop>
 
-            <Route component={NotFound} />
+            <Route component={NotFoundPage} />
           </Switch>
         </Router>
       </Provider>

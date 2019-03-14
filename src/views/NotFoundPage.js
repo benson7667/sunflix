@@ -2,7 +2,7 @@ import React from "react";
 import { Jumbotron, Button, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 
-const NotFound = () => (
+const NotFoundPage = () => (
   <Container>
     <Jumbotron style={{ marginTop: "2rem" }}>
       <h1 className="display-3">Page Not Found!</h1>
@@ -22,4 +22,4 @@ const NotFound = () => (
   </Container>
 );
 
-export default NotFound;
+export default NotFoundPage;

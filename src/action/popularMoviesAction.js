@@ -32,7 +32,6 @@ export const loadPopularMovies = () => async dispatch => {
 };
 
 export const fetchMorePopularMovies = pageNumberToFetch => async dispatch => {
-  console.log("pageNumberToFetch", pageNumberToFetch);
   try {
     const res = await axios.get(
       `${Config.apis_domain}movie/popular?api_key=${
@@ -41,7 +40,6 @@ export const fetchMorePopularMovies = pageNumberToFetch => async dispatch => {
     );
 
     if (res.data) {
-      console.log("fetch more data", res.data);
       dispatch({
         type: LOAD_MORE_POPULAR_MOVIES,
         payload: res.data

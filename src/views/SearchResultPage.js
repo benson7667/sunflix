@@ -6,6 +6,7 @@ import MovieCard from "../components/MovieCard";
 import LoadingPlaceholder from "../components/loader/LoadingPlaceholder";
 import axios from "axios";
 import randomString from "randomstring";
+import NoResultCard from "../components/NoDataCard";
 import Config from "../config/Constant";
 
 export class SearchResultPage extends Component {
@@ -70,7 +71,13 @@ export class SearchResultPage extends Component {
 
     if (movies !== null && !isLoading) {
       if (movies.length === 0) {
-        renderSearchResultLayout = <h1>NO DATA TO LOAD</h1>;
+        renderSearchResultLayout = (
+          <NoResultCard
+            title="No Result"
+            description="Sorry, we could not find any match result."
+            smallDescrip=" "
+          />
+        );
       } else {
         renderSearchResultLayout = (
           <InfiniteScroll
