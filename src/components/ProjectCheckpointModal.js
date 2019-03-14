@@ -17,8 +17,12 @@ class ProjectCheckpointModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: true
+      isModalOpen: !localStorage.getItem("outlineShown")
     };
+  }
+
+  componentDidMount() {
+    localStorage.setItem("outlineShown", true);
   }
 
   toggleModal = () => {
@@ -29,6 +33,8 @@ class ProjectCheckpointModal extends Component {
 
   render() {
     const { isModalOpen } = this.state;
+
+    console.log(localStorage.getItem("outlineShown"));
 
     return (
       <Modal
