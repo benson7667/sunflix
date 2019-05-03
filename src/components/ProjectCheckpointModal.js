@@ -34,8 +34,6 @@ class ProjectCheckpointModal extends Component {
   render() {
     const { isModalOpen } = this.state;
 
-    console.log(localStorage.getItem("outlineShown"));
-
     return (
       <Modal
         size="lg"
