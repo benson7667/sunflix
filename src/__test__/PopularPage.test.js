@@ -17,3 +17,5 @@ describe("Trending Page", () => {
     console.log(component.toJSON());
   });
 });
+
+// test master directly push
