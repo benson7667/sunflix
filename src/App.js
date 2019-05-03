@@ -15,7 +15,13 @@ import store from "./store";
 const hist = createBrowserHistory();
 
 class App extends Component {
+  sum = (a, b) => {
+    return a + b;
+  };
+
   render() {
+    console.log(this.sum(1, 2));
+
     return (
       <Provider store={store}>
         <Router history={hist}>
